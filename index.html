@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Almas de Pombagira - Link in Bio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Spline Sans', 'sans-serif'],
+            },
+            colors: {
+              background: {
+                dark: '#0d0714',
+                light: '#f3f4f6',
+              },
+              primary: '#8b5cf6',
+            },
+            animation: {
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'fade-in-down': 'fadeInDown 0.5s ease-out',
+            },
+            keyframes: {
+                fadeInDown: {
+                    '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                }
+            }
+          },
+        },
+      }
+    </script>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Spline Sans', sans-serif;
+        background-color: #0d0714; /* Fallback color */
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(139, 92, 246, 0.5);
+        border-radius: 3px;
+      }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ÍCONES (SVGs Inseridos Manualmente para evitar erros de biblioteca) ---
+        
+        const Share2 = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+        );
+        const Globe = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+        );
+        const Heart = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+        );
+        const Instagram = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        );
+        const Youtube = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        );
+        const Facebook = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+        );
+        const Send = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        );
+        const MessageCircle = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+        );
+        const Gamepad2 = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <line x1="6" y1="11" x2="10" y2="11"></line><line x1="8" y1="9" x2="8" y2="13"></line><line x1="15" y1="12" x2="15.01" y2="12"></line><line x1="18" y1="10" x2="18.01" y2="10"></line><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+            </svg>
+        );
+        const Palette = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+        );
+        const Music = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
+            </svg>
+        );
+        
+        // Ícones Customizados
+        const TikTokIcon = ({ className }) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+            </svg>
+        );
+        const KwaiIcon = ({ className }) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 15.66c-.32.22-.72.34-1.14.34-.6 0-1.16-.24-1.58-.66l-3.26-3.26-1.58 1.58v1.88c0 .54-.44 1-1 1s-1-.44-1-1v-8.32c0-.54.44-1 1-1s1 .46 1 1v2.8l4.16-4.16c.42-.42.98-.66 1.58-.66.82 0 1.5.52 1.78 1.28.14.38.1.8-.1 1.14l-3.32 3.32 3.32 3.32c.32.32.44.78.34 1.22-.1.44-.4 1.04-1.2 1.52z"/>
+            </svg>
+        );
+        const ThreadsIcon = ({ className }) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+                <path d="M14.5 9.5C14.5 9.5 13.5 12.5 11 12.5C9.5 12.5 8.5 11.5 8.5 10C8.5 8.5 9.5 7.5 11 7.5C13 7.5 14 9 14 11C14 13.5 12.5 16 9.5 16C7 16 5.5 14 5.5 11.5C5.5 8 8 5.5 12 5.5" />
+            </svg>
+        );
+        const BlueskyIcon = ({ className }) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+                <path d="M12 2L14 6L20 8L16 14L18 20L12 18L6 20L8 14L4 8L10 6L12 2Z" />
+            </svg>
+        );
+        const MetaIcon = ({ className }) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+               <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M17,14h-3 c-0.55,0-1-0.45-1-1s0.45-1,1-1h3c0.55,0,1,0.45,1,1S17.55,14,17,14z M12,17c-0.55,0-1-0.45-1-1s0.45-1,1-1s1,0.45,1,1 S12.55,17,12,17z M7,14H4c-0.55,0-1-0.45-1-1s0.45-1,1-1h3c0.55,0,1,0.45,1,1S7.55,14,7,14z"/>
+            </svg>
+        );
+        const SoraIcon = ({ className }) => (
+             <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+                <circle cx="12" cy="12" r="10" />
+            </svg>
+        );
+
+        // --- Tipos & Enums ---
+        const Theme = {
+            LIGHT: 'light',
+            DARK: 'dark',
+            RAINBOW: 'rainbow',
+            TRANS: 'trans'
+        };
+
+        // --- Dados (Constants) ---
+        const PROFILE_DATA = {
+          name: "Alexia Melusine",
+          handle: "@almasdepombagira",
+          description: "Espiritualidade | Almas de Pombagira | Criadora Digital",
+          avatarUrl: "https://raw.githubusercontent.com/alexialuzdeferro/Business-Card/refs/heads/main/ale.jpeg" 
+        };
+
+        const SOCIAL_LINKS = [
+          {
+            id: 'whatsapp-channel',
+            platform: 'Canal WhatsApp',
+            label: 'Canal Oficial',
+            url: 'https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G',
+            icon: <MessageCircle size={24} />,
+            color: 'text-[#25D366]',
+            bgColor: 'bg-[#25D366]/20'
+          },
+          {
+            id: 'tiktok-main',
+            platform: 'TikTok',
+            label: '@alexia.melusine',
+            url: 'https://www.tiktok.com/@alexia.melusine',
+            icon: <TikTokIcon className="w-6 h-6" />,
+            color: 'text-[#ff0050]',
+            bgColor: 'bg-[#ff0050]/20'
+          },
+          {
+            id: 'tiktok-espelhos',
+            platform: 'TikTok',
+            label: '@espelhosdepombagira',
+            url: 'https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR',
+            icon: <TikTokIcon className="w-6 h-6" />,
+            color: 'text-[#ff0050]',
+            bgColor: 'bg-[#ff0050]/20'
+          },
+          {
+            id: 'tiktok-almas',
+            platform: 'TikTok',
+            label: '@almasdepombagira',
+            url: 'https://www.tiktok.com/@almasdepombagira?lang=pt-BR',
+            icon: <TikTokIcon className="w-6 h-6" />,
+            color: 'text-[#ff0050]',
+            bgColor: 'bg-[#ff0050]/20'
+          },
+          {
+            id: 'tiktok-rosa',
+            platform: 'TikTok',
+            label: '@alexiarosadefogo',
+            url: 'https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR',
+            icon: <TikTokIcon className="w-6 h-6" />,
+            color: 'text-[#ff0050]',
+            bgColor: 'bg-[#ff0050]/20'
+          },
+          {
+            id: 'instagram-almas',
+            platform: 'Instagram',
+            label: '@almasdepombagira',
+            url: 'https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw',
+            icon: <Instagram size={24} />,
+            color: 'text-purple-500',
+            bgColor: 'bg-gradient-to-tr from-yellow-400/20 to-purple-600/20'
+          },
+          {
+            id: 'instagram-alexia',
+            platform: 'Instagram',
+            label: '@alexiamelusine',
+            url: 'https://www.instagram.com/alexiamelusine/',
+            icon: <Instagram size={24} />,
+            color: 'text-pink-500',
+            bgColor: 'bg-gradient-to-tr from-yellow-400/20 to-pink-600/20'
+          },
+          {
+            id: 'youtube',
+            platform: 'YouTube',
+            label: '@almasdepombagira',
+            url: 'https://www.youtube.com/@almasdepombagira',
+            icon: <Youtube size={24} />,
+            color: 'text-[#FF0000]',
+            bgColor: 'bg-[#FF0000]/20'
+          },
+          {
+            id: 'threads',
+            platform: 'Threads',
+            label: '@almasdepombagira',
+            url: 'https://www.threads.com/@almasdepombagira',
+            icon: <ThreadsIcon className="w-6 h-6" />,
+            color: 'text-black dark:text-white',
+            bgColor: 'bg-black/10 dark:bg-white/10'
+          },
+          {
+            id: 'facebook',
+            platform: 'Facebook',
+            label: 'Alexia Tsan',
+            url: 'https://www.facebook.com/alexia.tsan.7',
+            icon: <Facebook size={24} />,
+            color: 'text-[#1877F2]',
+            bgColor: 'bg-[#1877F2]/20'
+          },
+          {
+            id: 'bluesky',
+            platform: 'Bluesky',
+            label: '@almasdepombagira',
+            url: 'https://bsky.app/profile/almasdepombagira.bsky.social',
+            icon: <BlueskyIcon className="w-6 h-6" />,
+            color: 'text-[#0085ff]',
+            bgColor: 'bg-[#0085ff]/20'
+          },
+          {
+            id: 'kwai-almas',
+            platform: 'Kwai',
+            label: '@AlmasdePombagira',
+            url: 'https://www.kwai.com/@AlmasdePombagira',
+            icon: <KwaiIcon className="w-6 h-6" />,
+            color: 'text-[#ff8f00]',
+            bgColor: 'bg-[#ff8f00]/20'
+          },
+          {
+            id: 'kwai-rosa',
+            platform: 'Kwai',
+            label: '@AlexiaRosadeFogo',
+            url: 'https://www.kwai.com/@AlexiaRosadeFogo',
+            icon: <KwaiIcon className="w-6 h-6" />,
+            color: 'text-[#ff8f00]',
+            bgColor: 'bg-[#ff8f00]/20'
+          },
+          {
+            id: 'kwai-espelhos',
+            platform: 'Kwai',
+            label: '@espelhosdepombagira',
+            url: 'https://www.kwai.com/@espelhosdepombagira',
+            icon: <KwaiIcon className="w-6 h-6" />,
+            color: 'text-[#ff8f00]',
+            bgColor: 'bg-[#ff8f00]/20'
+          },
+          {
+            id: 'meta-ai',
+            platform: 'Meta AI',
+            label: '@alexiamelusine',
+            url: 'https://www.meta.ai/@alexiamelusine',
+            icon: <MetaIcon className="w-6 h-6" />,
+            color: 'text-blue-500',
+            bgColor: 'bg-blue-500/20'
+          },
+          {
+            id: 'sora-ai',
+            platform: 'Sora (ChatGPT)',
+            label: '@alexialuzdeferro',
+            url: 'https://sora.chatgpt.com/profile/alexialuzdeferro',
+            icon: <SoraIcon className="w-6 h-6" />,
+            color: 'text-teal-500',
+            bgColor: 'bg-teal-500/20'
+          },
+          {
+            id: 'telegram',
+            platform: 'Telegram',
+            label: 'Pomba Giras',
+            url: 'https://t.me/pomba_giras',
+            icon: <Send size={24} />,
+            color: 'text-[#0088cc]',
+            bgColor: 'bg-[#0088cc]/20'
+          },
+          {
+            id: 'discord',
+            platform: 'Discord',
+            label: 'Comunidade',
+            url: 'https://discord.gg/gWZP8R7Dqu',
+            icon: <Gamepad2 size={24} />,
+            color: 'text-[#5865F2]',
+            bgColor: 'bg-[#5865F2]/20'
+          },
+          {
+            id: 'pinterest',
+            platform: 'Pinterest',
+            label: 'almasdepombagira',
+            url: 'https://br.pinterest.com/almasdepombagira/',
+            icon: <Palette size={24} />,
+            color: 'text-[#E60023]',
+            bgColor: 'bg-[#E60023]/20'
+          },
+          {
+            id: 'music-dark',
+            platform: 'Music Dark',
+            label: 'Vampire Waves',
+            url: 'https://alexialuzdeferro.github.io/vampire-waves/',
+            icon: <Music size={24} />,
+            color: 'text-purple-300',
+            bgColor: 'bg-purple-600/30'
+          },
+          {
+            id: 'website',
+            platform: 'Website',
+            label: 'Bio Site',
+            url: 'https://bio.site/AlmasdePombagira',
+            icon: <Globe size={24} />,
+            color: 'text-primary',
+            bgColor: 'bg-primary/20'
+          }
+        ];
+
+        // --- Componente ViewCounter ---
+        const ViewCounter = () => {
+            return (
+                <div className="text-center py-4 opacity-50 text-xs">
+                    <span className="flex items-center justify-center gap-1">
+                        <Share2 className="w-3 h-3" /> Link na Bio
+                    </span>
+                </div>
+            );
+        };
+
+        // --- Aplicação Principal (App) ---
+        function App() {
+          const [theme, setTheme] = useState(Theme.DARK);
+
+          useEffect(() => {
+            const root = window.document.documentElement;
+            root.classList.remove('dark', 'light');
+            
+            if (theme === Theme.DARK || theme === Theme.RAINBOW || theme === Theme.TRANS) {
+                root.classList.add('dark');
+            } else {
+                root.classList.add('light');
+            }
+          }, [theme]);
+
+          const handleShare = async () => {
+            if (navigator.share) {
+              try {
+                await navigator.share({
+                  title: PROFILE_DATA.name,
+                  text: `Confira os links de ${PROFILE_DATA.name}`,
+                  url: window.location.href,
+                });
+              } catch (error) {
+                console.log('Error sharing', error);
+              }
+            } else {
+              navigator.clipboard.writeText(window.location.href);
+              alert('Link copiado para a área de transferência!');
+            }
+          };
+
+          const getBackgroundClass = () => {
+            switch (theme) {
+              case Theme.LIGHT:
+                return 'bg-[#f6f8f7]';
+              case Theme.RAINBOW:
+                return 'bg-[linear-gradient(135deg,#FF0018,#FFA52C,#FFFF41,#008018,#0000F9,#86007D)]';
+              case Theme.TRANS:
+                return 'bg-[linear-gradient(180deg,#5BCEFA_0%,#F5A9B8_30%,#FFFFFF_50%,#F5A9B8_70%,#5BCEFA_100%)]';
+              case Theme.DARK:
+              default:
+                return 'bg-[#0d0714]';
+            }
+          };
+
+          const getCardClass = () => {
+            switch (theme) {
+              case Theme.LIGHT:
+                return 'bg-white border-gray-200 text-gray-800 hover:border-primary/50 hover:bg-gray-50';
+              case Theme.TRANS:
+                return 'bg-white/80 backdrop-blur-md border-white/40 text-gray-900 hover:bg-white hover:scale-[1.02]';
+              case Theme.RAINBOW:
+                return 'bg-black/40 backdrop-blur-md border-white/20 text-white hover:bg-black/50 hover:border-white/40';
+              case Theme.DARK:
+              default:
+                return 'bg-white/5 border-white/5 text-gray-200 hover:border-primary/50 hover:bg-white/10';
+            }
+          };
+
+          const getTextColor = () => {
+              if (theme === Theme.TRANS || theme === Theme.LIGHT) return 'text-gray-900';
+              return 'text-white';
+          }
+
+          const getSubTextColor = () => {
+              if (theme === Theme.TRANS || theme === Theme.LIGHT) return 'text-gray-600';
+              if (theme === Theme.RAINBOW) return 'text-gray-200';
+              return 'text-gray-400';
+          }
+
+          return (
+            <div className={`relative min-h-screen w-full flex flex-col transition-colors duration-500 ${getBackgroundClass()}`}>
+              
+              {/* Background Decor (Only for Dark Mode) */}
+              {theme === Theme.DARK && (
+                <div className="fixed inset-0 pointer-events-none z-0">
+                    <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-900/20 blur-[100px] rounded-full mix-blend-screen animate-pulse-slow"></div>
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-primary/10 blur-[80px] rounded-full"></div>
+                </div>
+              )}
+
+              {/* Main Content */}
+              <div className="relative z-10 flex flex-col flex-1 max-w-lg mx-auto w-full shadow-2xl min-h-screen">
+                
+                {/* Theme Switcher Header */}
+                <header className="flex items-center justify-center gap-4 p-6 pt-8 w-full z-50">
+                    <button 
+                        onClick={() => setTheme(Theme.LIGHT)}
+                        className={`h-10 w-10 rounded-full bg-white border-2 shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center ${theme === Theme.LIGHT ? 'ring-2 ring-primary ring-offset-2 ring-offset-transparent' : 'border-gray-200'}`}
+                        title="Tema Claro"
+                    >
+                        <span className="w-6 h-6 rounded-full bg-gray-100 border border-gray-300"></span>
+                    </button>
+
+                    <button 
+                        onClick={() => setTheme(Theme.DARK)}
+                        className={`h-10 w-10 rounded-full bg-gray-900 border-2 shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center ${theme === Theme.DARK ? 'ring-2 ring-primary ring-offset-2 ring-offset-transparent' : 'border-gray-700'}`}
+                        title="Tema Dark"
+                    >
+                        <span className="w-6 h-6 rounded-full bg-gray-800 border border-gray-600"></span>
+                    </button>
+
+                    <button 
+                        onClick={() => setTheme(Theme.RAINBOW)}
+                        className={`h-10 w-10 rounded-full overflow-hidden border-2 shadow-lg transition-transform hover:scale-110 active:scale-95 ${theme === Theme.RAINBOW ? 'ring-2 ring-white ring-offset-2 ring-offset-transparent' : 'border-white/20'}`}
+                        title="Tema Arco-íris"
+                    >
+                        <div className="w-full h-full bg-[linear-gradient(135deg,#FF0018,#FFA52C,#FFFF41,#008018,#0000F9,#86007D)]"></div>
+                    </button>
+
+                    <button 
+                        onClick={() => setTheme(Theme.TRANS)}
+                        className={`h-10 w-10 rounded-full overflow-hidden border-2 shadow-lg transition-transform hover:scale-110 active:scale-95 ${theme === Theme.TRANS ? 'ring-2 ring-primary ring-offset-2 ring-offset-transparent' : 'border-white/20'}`}
+                        title="Tema Trans"
+                    >
+                        <div className="w-full h-full bg-[linear-gradient(135deg,#5BCEFA,#F5A9B8,#FFFFFF,#F5A9B8,#5BCEFA)]"></div>
+                    </button>
+                </header>
+
+                {/* Profile Section */}
+                <section className="flex flex-col items-center pt-8 pb-4 px-6 animate-fade-in-down">
+                    <div className="relative group cursor-pointer mb-6">
+                        <div className="relative p-1 rounded-full bg-gradient-to-tr from-primary to-purple-400">
+                            <img 
+                                src={PROFILE_DATA.avatarUrl} 
+                                alt={PROFILE_DATA.name}
+                                className={`aspect-square rounded-full h-32 w-32 border-4 object-cover object-[center_20%] ${theme === Theme.TRANS ? 'border-white/50' : 'border-background-dark'}`}
+                            />
+                        </div>
+                        <div className="absolute bottom-2 right-2 h-6 w-6 bg-green-500 border-4 border-background-dark rounded-full shadow-lg" title="Online"></div>
+                    </div>
+                    
+                    <div className="flex flex-col items-center text-center space-y-2">
+                        <h1 className={`${getTextColor()} text-3xl font-bold tracking-tight`}>{PROFILE_DATA.name}</h1>
+                        <p className="text-primary font-medium text-sm bg-primary/10 px-3 py-1 rounded-full">{PROFILE_DATA.handle}</p>
+                        <p className={`${getSubTextColor()} text-sm max-w-[280px] leading-relaxed mt-2`}>
+                            {PROFILE_DATA.description} <Heart className="inline w-3 h-3 text-primary fill-primary" />
+                        </p>
+                    </div>
+                </section>
+
+                {/* Links Grid */}
+                <div className="px-6 pt-4 pb-2">
+                     <h3 className={`${getTextColor()} text-lg font-bold flex items-center gap-2 mb-4`}>
+                        <Globe className={`w-5 h-5 ${theme === Theme.RAINBOW ? 'text-white' : 'text-primary'}`} />
+                        Minhas Redes
+                    </h3>
+                    
+                    <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 pb-32">
+                        {SOCIAL_LINKS.map((link) => {
+                             if (link.id === 'website') return null;
+
+                             const isHighlighted = link.id === 'music-dark';
+                             const highlightedClasses = isHighlighted 
+                                ? 'bg-gradient-to-br from-gray-900 to-purple-950 border-purple-500/60 text-white shadow-lg shadow-purple-900/40 hover:scale-105 hover:border-purple-400 hover:shadow-purple-500/30' 
+                                : getCardClass();
+
+                             return (
+                                <a 
+                                    key={link.id}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`group flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-start gap-3 p-4 rounded-2xl border transition-all duration-300 ${highlightedClasses}`}
+                                >
+                                    <div className={`flex items-center justify-center size-10 rounded-full ${link.bgColor} ${link.color} group-hover:scale-110 transition-transform`}>
+                                        {link.icon}
+                                    </div>
+                                    <div className="flex flex-col items-center sm:items-start overflow-hidden">
+                                        <span className={`font-medium text-xs sm:text-sm truncate w-full text-center sm:text-left ${theme === Theme.TRANS && !isHighlighted ? 'text-gray-900' : ''} ${isHighlighted ? 'text-gray-100 font-bold' : ''}`}>{link.platform}</span>
+                                        <span className={`text-[10px] sm:text-xs truncate w-full text-center sm:text-left opacity-70 ${isHighlighted ? 'text-purple-300' : ''}`}>{link.label}</span>
+                                    </div>
+                                </a>
+                             )
+                        })}
+
+                        {/* Website Button - Full Width */}
+                        {SOCIAL_LINKS.find(l => l.id === 'website') && (
+                            <a 
+                                href={SOCIAL_LINKS.find(l => l.id === 'website')?.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`col-span-2 group flex flex-row items-center gap-3 p-4 rounded-2xl border border-primary/20 bg-primary/10 hover:bg-primary/20 hover:border-primary/50 transition-all duration-300 mt-2 ${theme === Theme.RAINBOW ? 'bg-black/30 text-white' : ''}`}
+                            >
+                                <div className="flex items-center justify-center size-10 rounded-full bg-primary/20 text-primary group-hover:scale-110 transition-transform">
+                                    <Globe size={24} />
+                                </div>
+                                <span className={`font-bold text-sm ${getTextColor()}`}>Visite nosso Website</span>
+                            </a>
+                        )}
+                    </div>
+                </div>
+
+                {/* Sticky Share Button */}
+                <div className="fixed bottom-0 left-0 right-0 p-5 z-20 pointer-events-none flex justify-center">
+                    <div className={`w-full max-w-lg pointer-events-auto bg-gradient-to-t from-black/80 to-transparent p-4 pb-6 -mb-5 pt-10 rounded-t-3xl ${theme === Theme.TRANS ? 'from-white/80' : ''}`}>
+                         <button 
+                            onClick={handleShare}
+                            className="w-full flex cursor-pointer items-center justify-center rounded-xl h-14 bg-white text-black gap-3 text-base font-bold shadow-2xl hover:bg-gray-200 active:scale-95 transition-all"
+                        >
+                            <Share2 size={20} />
+                            <span>Compartilhar Perfil</span>
+                        </button>
+                    </div>
+                </div>
+              
+              <ViewCounter />
+
+              </div>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
