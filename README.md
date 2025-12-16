@@ -57,15 +57,5 @@ O diferencial deste projeto é o sistema de **Temas Dinâmicos**, que permite ao
 
 Basta baixar o arquivo `index.html` e abri-lo em qualquer navegador moderno (Chrome, Edge, Firefox). Não é necessário instalar Node.js ou dependências, pois tudo é carregado via CDN.
 
-## ⚙️ Configuração
 
-Para alterar os links e informações, edite as constantes no início do script dentro do arquivo `index.html`:
 
-### Perfil
-```javascript
-const PROFILE_DATA = {
-  name: "Seu Nome",
-  handle: "@seuhandle",
-  description: "Sua descrição incrível",
-  avatarUrl: "URL_DA_SUA_FOTO"
-};
