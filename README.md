@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/alexialuzdeferro/Business-Card/refs/heads/main/ale.jpeg" alt="Logo" width="100" height="100" style="border-radius: 50%;">
+  <img src="https://raw.githubusercontent.com/alexialuzdeferro/Business-Card/refs/heads/main/Imagine_1410952850621807.jpg" alt="Logo" width="100" height="100" style="border-radius: 50%;">
 
   # ✨ Almas de Pombagira - Link in Bio
   
