@@ -39,8 +39,6 @@
       }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
@@ -91,11 +89,6 @@
 
     <script type="text/babel">
         const { useState, useEffect } = React;
-
-        // --- CONFIGURAÇÃO SUPABASE ---
-        const SUPABASE_URL = 'https://qgnprifuachmfxoaalax.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnbnByaWZ1YWNobWZ4b2FhbGF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODU5MDcsImV4cCI6MjA4MDk2MTkwN30.sKSYFhcI-zflr9RUKXpWF0_5sc6foDG7yxdEirtE0W4';
-        const SITE_NAME = 'site_alexialuzdeferro';
 
         // --- ÍCONES (SVGs) ---
         const Share2 = ({ size = 24, className }) => (
@@ -206,7 +199,7 @@
           name: "Alexia Melusine",
           handle: "@almasdepombagira",
           description: "Espiritualidade | Almas de Pombagira | Criadora Digital",
-          avatarUrl: "https://raw.githubusercontent.com/alexialuzdeferro/Business-Card/refs/heads/main/Imagine_1410952850621807.jpg" 
+          avatarUrl: "https://raw.githubusercontent.com/alexialuzdeferro/Business-Card/refs/heads/main/Imagine_1410952850621807.jpg  " 
         };
 
         const SOCIAL_LINKS = [
@@ -214,7 +207,7 @@
             id: 'whatsapp-channel',
             platform: 'Canal WhatsApp',
             label: 'Canal Oficial',
-            url: 'https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G',
+            url: 'https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G  ',
             icon: <MessageCircle size={24} />,
             color: 'text-[#25D366]',
             bgColor: 'bg-[#25D366]/20'
@@ -223,7 +216,7 @@
             id: 'tiktok-main',
             platform: 'TikTok',
             label: '@alexia.melusine',
-            url: 'https://www.tiktok.com/@alexia.melusine',
+            url: 'https://www.tiktok.com/@alexia.melusine  ',
             icon: <TikTokIcon className="w-6 h-6" />,
             color: 'text-[#ff0050]',
             bgColor: 'bg-[#ff0050]/20'
@@ -232,7 +225,7 @@
             id: 'tiktok-espelhos',
             platform: 'TikTok',
             label: '@espelhosdepombagira',
-            url: 'https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR',
+            url: 'https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR  ',
             icon: <TikTokIcon className="w-6 h-6" />,
             color: 'text-[#ff0050]',
             bgColor: 'bg-[#ff0050]/20'
@@ -241,7 +234,7 @@
             id: 'tiktok-almas',
             platform: 'TikTok',
             label: '@almasdepombagira',
-            url: 'https://www.tiktok.com/@almasdepombagira?lang=pt-BR',
+            url: 'https://www.tiktok.com/@almasdepombagira?lang=pt-BR  ',
             icon: <TikTokIcon className="w-6 h-6" />,
             color: 'text-[#ff0050]',
             bgColor: 'bg-[#ff0050]/20'
@@ -250,7 +243,7 @@
             id: 'tiktok-rosa',
             platform: 'TikTok',
             label: '@alexiarosadefogo',
-            url: 'https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR',
+            url: 'https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR  ',
             icon: <TikTokIcon className="w-6 h-6" />,
             color: 'text-[#ff0050]',
             bgColor: 'bg-[#ff0050]/20'
@@ -259,7 +252,7 @@
             id: 'instagram-almas',
             platform: 'Instagram',
             label: '@almasdepombagira',
-            url: 'https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw',
+            url: 'https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw  ',
             icon: <Instagram size={24} />,
             color: 'text-purple-500',
             bgColor: 'bg-gradient-to-tr from-yellow-400/20 to-purple-600/20'
@@ -268,7 +261,7 @@
             id: 'instagram-alexia',
             platform: 'Instagram',
             label: '@alexiamelusine',
-            url: 'https://www.instagram.com/alexiamelusine/',
+            url: 'https://www.instagram.com/alexiamelusine/  ',
             icon: <Instagram size={24} />,
             color: 'text-pink-500',
             bgColor: 'bg-gradient-to-tr from-yellow-400/20 to-pink-600/20'
@@ -277,7 +270,7 @@
             id: 'youtube',
             platform: 'YouTube',
             label: '@almasdepombagira',
-            url: 'https://www.youtube.com/@almasdepombagira',
+            url: 'https://www.youtube.com/@almasdepombagira  ',
             icon: <Youtube size={24} />,
             color: 'text-[#FF0000]',
             bgColor: 'bg-[#FF0000]/20'
@@ -286,7 +279,7 @@
             id: 'threads',
             platform: 'Threads',
             label: '@almasdepombagira',
-            url: 'https://www.threads.com/@almasdepombagira',
+            url: 'https://www.threads.com/@almasdepombagira  ',
             icon: <ThreadsIcon className="w-6 h-6" />,
             color: 'text-black dark:text-white',
             bgColor: 'bg-black/10 dark:bg-white/10'
@@ -295,7 +288,7 @@
             id: 'facebook',
             platform: 'Facebook',
             label: 'Alexia Tsan',
-            url: 'https://www.facebook.com/alexia.tsan.7',
+            url: 'https://www.facebook.com/alexia.tsan.7  ',
             icon: <Facebook size={24} />,
             color: 'text-[#1877F2]',
             bgColor: 'bg-[#1877F2]/20'
@@ -304,7 +297,7 @@
             id: 'bluesky',
             platform: 'Bluesky',
             label: '@almasdepombagira',
-            url: 'https://bsky.app/profile/almasdepombagira.bsky.social',
+            url: 'https://bsky.app/profile/almasdepombagira.bsky.social  ',
             icon: <BlueskyIcon className="w-6 h-6" />,
             color: 'text-[#0085ff]',
             bgColor: 'bg-[#0085ff]/20'
@@ -313,7 +306,7 @@
             id: 'kwai-almas',
             platform: 'Kwai',
             label: '@AlmasdePombagira',
-            url: 'https://www.kwai.com/@AlmasdePombagira',
+            url: 'https://www.kwai.com/@AlmasdePombagira  ',
             icon: <KwaiIcon className="w-6 h-6" />,
             color: 'text-[#ff8f00]',
             bgColor: 'bg-[#ff8f00]/20'
@@ -322,7 +315,7 @@
             id: 'kwai-rosa',
             platform: 'Kwai',
             label: '@AlexiaRosadeFogo',
-            url: 'https://www.kwai.com/@AlexiaRosadeFogo',
+            url: 'https://www.kwai.com/@AlexiaRosadeFogo  ',
             icon: <KwaiIcon className="w-6 h-6" />,
             color: 'text-[#ff8f00]',
             bgColor: 'bg-[#ff8f00]/20'
@@ -331,7 +324,7 @@
             id: 'kwai-espelhos',
             platform: 'Kwai',
             label: '@espelhosdepombagira',
-            url: 'https://www.kwai.com/@espelhosdepombagira',
+            url: 'https://www.kwai.com/@espelhosdepombagira  ',
             icon: <KwaiIcon className="w-6 h-6" />,
             color: 'text-[#ff8f00]',
             bgColor: 'bg-[#ff8f00]/20'
@@ -340,7 +333,7 @@
             id: 'meta-ai',
             platform: 'Meta AI',
             label: '@alexiamelusine',
-            url: 'https://www.meta.ai/@alexiamelusine',
+            url: 'https://www.meta.ai/@alexiamelusine  ',
             icon: <MetaIcon className="w-6 h-6" />,
             color: 'text-blue-500',
             bgColor: 'bg-blue-500/20'
@@ -349,7 +342,7 @@
             id: 'sora-ai',
             platform: 'Sora (ChatGPT)',
             label: '@alexialuzdeferro',
-            url: 'https://sora.chatgpt.com/profile/alexialuzdeferro',
+            url: 'https://sora.chatgpt.com/profile/alexialuzdeferro  ',
             icon: <SoraIcon className="w-6 h-6" />,
             color: 'text-teal-500',
             bgColor: 'bg-teal-500/20'
@@ -358,7 +351,7 @@
             id: 'telegram',
             platform: 'Telegram',
             label: 'Pomba Giras',
-            url: 'https://t.me/pomba_giras',
+            url: 'https://t.me/pomba_giras  ',
             icon: <Send size={24} />,
             color: 'text-[#0088cc]',
             bgColor: 'bg-[#0088cc]/20'
@@ -367,7 +360,7 @@
             id: 'discord',
             platform: 'Discord',
             label: 'Comunidade',
-            url: 'https://discord.gg/gWZP8R7Dqu',
+            url: 'https://discord.gg/gWZP8R7Dqu  ',
             icon: <Gamepad2 size={24} />,
             color: 'text-[#5865F2]',
             bgColor: 'bg-[#5865F2]/20'
@@ -376,7 +369,7 @@
             id: 'pinterest',
             platform: 'Pinterest',
             label: 'almasdepombagira',
-            url: 'https://br.pinterest.com/almasdepombagira/',
+            url: 'https://br.pinterest.com/almasdepombagira/  ',
             icon: <Palette size={24} />,
             color: 'text-[#E60023]',
             bgColor: 'bg-[#E60023]/20'
@@ -385,7 +378,7 @@
             id: 'music-dark',
             platform: 'Music Dark',
             label: 'Vampire Waves',
-            url: 'https://alexialuzdeferro.github.io/vampire-waves/',
+            url: 'https://alexialuzdeferro.github.io/vampire-waves/  ',
             icon: <Music size={24} />,
             color: 'text-purple-300',
             bgColor: 'bg-purple-600/30'
@@ -394,76 +387,12 @@
             id: 'website',
             platform: 'Website',
             label: 'Bio Site',
-            url: 'https://bio.site/AlmasdePombagira',
+            url: 'https://bio.site/AlmasdePombagira  ',
             icon: <Globe size={24} />,
             color: 'text-primary',
             bgColor: 'bg-primary/20'
           }
         ];
-
-        // --- Componente ViewCounter (No Topo Esquerdo) ---
-        const ViewCounter = () => {
-            const [count, setCount] = useState(0);
-            const [isOnline, setIsOnline] = useState(false);
-
-            useEffect(() => {
-                const initCounter = async () => {
-                    if (!window.supabase) return;
-                    
-                    try {
-                        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-                        if (!sessionStorage.getItem('site_visited')) {
-                            const { data: existing } = await supabase
-                                .from('page_views')
-                                .select('view_count')
-                                .eq('page_name', SITE_NAME)
-                                .single();
-
-                            const current = existing?.view_count || 0;
-                            const newCount = current + 1;
-
-                            await supabase
-                                .from('page_views')
-                                .upsert({
-                                    page_name: SITE_NAME,
-                                    view_count: newCount,
-                                    last_updated: new Date().toISOString()
-                                }, { onConflict: 'page_name' });
-                            
-                            setCount(newCount);
-                            sessionStorage.setItem('site_visited', 'true');
-                        } else {
-                            const { data } = await supabase
-                                .from('page_views')
-                                .select('view_count')
-                                .eq('page_name', SITE_NAME)
-                                .single();
-                            if (data) setCount(data.view_count);
-                        }
-                        setIsOnline(true);
-                    } catch (error) {
-                        console.error("Erro no contador:", error);
-                        let local = localStorage.getItem('local_site_views') || 0;
-                        if (!sessionStorage.getItem('site_visited')) {
-                            local = parseInt(local) + 1;
-                            localStorage.setItem('local_site_views', local);
-                            sessionStorage.setItem('site_visited', 'true');
-                        }
-                        setCount(local);
-                    }
-                };
-                initCounter();
-            }, []);
-
-            return (
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-[11px] text-white/50 transition-opacity hover:opacity-100 hover:bg-white/10 select-none opacity-60 h-10">
-                    <UserIcon size={12} className="opacity-70" />
-                    <span className="font-medium text-white">{count}</span>
-                    <span className={`w-1.5 h-1.5 rounded-full ml-1 ${isOnline ? 'bg-green-400/80 dot-pulse' : 'bg-yellow-500/50'}`}></span>
-                </div>
-            );
-        };
 
         // --- Aplicação Principal (App) ---
         function App() {
@@ -551,12 +480,8 @@
               {/* Main Content */}
               <div className="relative z-10 flex flex-col flex-1 max-w-lg mx-auto w-full shadow-2xl min-h-screen">
                 
-                {/* Theme Switcher Header + Counter */}
+                {/* Theme Switcher Header */}
                 <header className="flex flex-wrap items-center justify-center gap-4 p-6 pt-8 w-full z-50">
-                    
-                    {/* Contador Movido para o topo esquerdo */}
-                    <ViewCounter />
-
                     <button 
                         onClick={() => setTheme(Theme.LIGHT)}
                         className={`h-10 w-10 rounded-full bg-white border-2 shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center ${theme === Theme.LIGHT ? 'ring-2 ring-primary ring-offset-2 ring-offset-transparent' : 'border-gray-200'}`}
